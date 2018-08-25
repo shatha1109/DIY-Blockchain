@@ -1,1 +1,1 @@
-# DIY Blockchain
+# First Day -- Block Chain Fundamentals
