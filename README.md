@@ -1,1 +1,1 @@
-# Part One: DIY Blockchain
+# DIY Blockchain
