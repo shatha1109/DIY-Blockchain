@@ -22,12 +22,8 @@ class Transaction {
    *     other properties, signed with the provided private key
    */
   constructor(privateKey, recipient, amount) {
-    this.source = signing.getPublicKey(privateKey);
-    this.recipient = recipient;
-    this.amount = amount;
+    // Enter your solution here
 
-    const toSign = this.source + recipient + amount;
-    this.signature = signing.sign(privateKey, toSign);
   }
 }
 
@@ -48,9 +44,8 @@ class Block {
    *   - hash: a unique hash string generated from the other properties
    */
   constructor(transactions, previousHash) {
-    this.transactions = transactions;
-    this.previousHash = previousHash;
-    this.calculateHash(0);
+    // Your code here
+
   }
 
   /**
@@ -63,11 +58,8 @@ class Block {
    *   properties change.
    */
   calculateHash(nonce) {
-    const transactionString = this.transactions.map(t => t.signature).join('');
-    const toHash = this.previousHash + transactionString + nonce;
+    // Your code here
 
-    this.nonce = nonce;
-    this.hash = createHash('sha512').update(toHash).digest('hex');
   }
 }
 
@@ -86,15 +78,16 @@ class Blockchain {
    *   - blocks: an array of blocks, starting with one genesis block
    */
   constructor() {
-    const genesis = new Block([], null);
-    this.blocks = [ genesis ];
+    // Your code here
+
   }
 
   /**
    * Simply returns the last block added to the chain.
    */
   getHeadBlock() {
-    return this.blocks[this.blocks.length - 1];
+    // Your code here
+
   }
 
   /**
@@ -102,8 +95,8 @@ class Blockchain {
    * adding it to the chain.
    */
   addBlock(transactions) {
-    const block = new Block(transactions, this.getHeadBlock().hash);
-    this.blocks.push(block);
+    // Your code here
+
   }
 
   /**
@@ -116,17 +109,8 @@ class Blockchain {
    *   we make the blockchain mineable later.
    */
   getBalance(publicKey) {
-    return this.blocks.reduce((balance, block) => {
-      return balance + block.transactions.reduce((sum, transaction) => {
-        if (transaction.recipient === publicKey) {
-          return sum + transaction.amount;
-        }
-        if (transaction.source === publicKey) {
-          return sum - transaction.amount;
-        }
-        return sum;
-      }, 0);
-    }, 0);
+    // Your code here
+
   }
 }
 
