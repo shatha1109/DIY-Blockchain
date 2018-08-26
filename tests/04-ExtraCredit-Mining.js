@@ -17,25 +17,26 @@ describe.skip('Mining module', function() {
     let signer = null;
     let recipient = null;
     let amount = null;
-    let transaction = null;
 
     beforeEach(function() {
       signer = signing.createPrivateKey();
       recipient = signing.getPublicKey(signing.createPrivateKey());
       amount = Math.ceil(Math.random() * 100);
-      transaction = new MineableTransaction(signer, recipient, amount);
     });
 
     it('should include signer public key as source', function() {
+      const transaction = new MineableTransaction(signer, recipient, amount);
       expect(transaction.source).to.equal(signing.getPublicKey(signer));
     });
 
     it('should include the passed recipient and amount', function() {
+      const transaction = new MineableTransaction(signer, recipient, amount);
       expect(transaction.recipient).to.equal(recipient);
       expect(transaction.amount).to.equal(amount);
     });
 
     it('should include a valid signature', function() {
+      const transaction = new MineableTransaction(signer, recipient, amount);
       const { source, signature } = transaction;
       const signedMessage = source + recipient + amount;
 
@@ -43,6 +44,7 @@ describe.skip('Mining module', function() {
     });
 
     it('should create a reward by making signer the recipient', function() {
+      const transaction = new MineableTransaction(signer, recipient, amount);
       const reward = new MineableTransaction(signer, null, amount);
 
       expect(reward.source).to.equal(null);
@@ -53,7 +55,6 @@ describe.skip('Mining module', function() {
   describe('MineableBlock', function() {
     let previousHash = null;
     let transactions = null;
-    let block = null;
 
     beforeEach(function() {
       const signer = signing.createPrivateKey();
@@ -62,11 +63,10 @@ describe.skip('Mining module', function() {
 
       transactions = [ new MineableTransaction(signer, recipient, amount) ];
       previousHash = randomBytes(64).toString('hex');
-
-      block = new MineableBlock(transactions, previousHash);
     });
 
     it('should be instantiated without a hash', function() {
+      const block = new MineableBlock(transactions, previousHash);
       expect(!!block.hash).to.be.false;
     });
 

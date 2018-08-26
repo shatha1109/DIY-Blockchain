@@ -22,17 +22,14 @@ const randomString = () => {
 describe('Signing module', function() {
 
   describe('createPrivateKey', function() {
-    let privateKey = null;
-
-    beforeEach(function() {
-      privateKey = signing.createPrivateKey();
-    });
 
     it('should return a hex string', function() {
+      const privateKey = signing.createPrivateKey();
       expect(privateKey).to.be.a.hexString;
     });
 
     it('should generate a valid Secp256k1 private key', function() {
+      const privateKey = signing.createPrivateKey();
       const isValid = secp256k1.privateKeyVerify(toBytes(privateKey));
       expect(isValid).to.be.true;
     });
@@ -40,23 +37,24 @@ describe('Signing module', function() {
 
   describe('getPublicKey', function() {
     let privateKey = null;
-    let publicKey = null;
 
     beforeEach(function() {
       privateKey = signing.createPrivateKey();
-      publicKey = signing.getPublicKey(privateKey);
     });
 
     it('should return a hex string', function() {
+      const publicKey = signing.getPublicKey(privateKey);
       expect(publicKey).to.be.a.hexString;
     });
 
     it('should generate a valid Secp256k1 public key', function() {
+      const publicKey = signing.getPublicKey(privateKey);
       const isValid = secp256k1.publicKeyVerify(toBytes(publicKey));
       expect(isValid).to.be.true;
     });
 
     it('should have a public key derived from its private key', function() {
+      const publicKey = signing.getPublicKey(privateKey);
       const generatedPublicKey = secp256k1
         .publicKeyCreate(toBytes(privateKey))
         .toString('hex');
@@ -67,20 +65,21 @@ describe('Signing module', function() {
 
   describe('sign', function() {
     const message = randomString();
+    let privateKey = null;
     let publicKey = null;
-    let signature = null;
 
     beforeEach(function() {
-      const privateKey = signing.createPrivateKey();
+      privateKey = signing.createPrivateKey();
       publicKey = signing.getPublicKey(privateKey);
-      signature = signing.sign(privateKey, message);
     });
 
     it('should return a hex string', function() {
+      const signature = signing.sign(privateKey, message);
       expect(signature).to.be.a.hexString;
     });
 
     it('should create a valid signature', function() {
+      const signature = signing.sign(privateKey, message);
       const isValid = secp256k1.verify(
         sha256(message),
         toBytes(signature),
