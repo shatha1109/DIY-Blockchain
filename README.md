@@ -28,7 +28,7 @@ first install [Node 8](https://nodejs.org/) or higher. Then run these commands
 from your terminal:
 
 ```bash
-cd code/part-one/
+cd DIY-Blockchain/
 npm install
 npm test
 ```
